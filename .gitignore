@@ -148,3 +148,11 @@ backend/.env
 # SQLite WAL 模式文件
 *.db-shm
 *.db-wal
+
+# 本地启动脚本生成的文件
+.backend.pid
+.frontend.pid
+
+# Python 虚拟环境
+backend/venv/
+venv/

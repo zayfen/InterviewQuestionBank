@@ -43,11 +43,51 @@
 ## 🚦 快速开始
 
 ### 环境要求
-- Python 3.8+
+- Python 3.9+
 - Node.js 16+
 - SQLite 3.x
 
-### 使用Docker（推荐）
+### 方式一：本地启动（推荐开发环境）
+
+1. 克隆项目
+```bash
+git clone https://github.com/yourusername/interview-question-bank.git
+cd interview-question-bank
+```
+
+2. 配置环境变量
+```bash
+cd backend
+cp .env.example .env
+# 编辑 .env 文件，添加OpenAI API密钥（可选）
+cd ..
+```
+
+3. 一键启动（前后端同时启动）
+```bash
+./start-local.sh
+```
+
+4. 访问应用
+- 前端：http://localhost:5173
+- 后端API：http://localhost:8000
+- API文档：http://localhost:8000/docs
+
+5. 停止服务
+```bash
+./stop-local.sh
+```
+
+**脚本功能说明：**
+- ✅ 自动检查 Python 和 Node.js 环境
+- ✅ 自动创建 Python 虚拟环境
+- ✅ 自动安装前后端依赖
+- ✅ 自动初始化数据库
+- ✅ 同时启动前后端服务
+- ✅ 进程管理和优雅停止
+- ✅ 彩色日志输出
+
+### 方式二：使用Docker（推荐生产环境）
 
 1. 克隆项目
 ```bash
@@ -63,6 +103,8 @@ cp .env.example .env
 
 3. 启动服务
 ```bash
+./start.sh
+# 或者手动执行
 docker-compose up -d
 ```
 
@@ -71,11 +113,15 @@ docker-compose up -d
 - 后端API：http://localhost:8000
 - API文档：http://localhost:8000/docs
 
-### 手动部署
+### 方式三：手动部署
 
 #### 后端部署
 ```bash
 cd backend
+
+# 创建虚拟环境（推荐）
+python3 -m venv venv
+source venv/bin/activate
 
 # 安装依赖
 pip install -r requirements.txt
@@ -84,6 +130,8 @@ pip install -r requirements.txt
 python init_data.py
 
 # 启动服务
+python main.py
+# 或使用 uvicorn
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
