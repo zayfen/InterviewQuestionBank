@@ -21,13 +21,28 @@ def create_question(
 @router.get("/", response_model=schemas.QuestionListResponse)
 def read_questions(
     db: Session = Depends(get_db),
+    q: str = Query(None, description="搜索关键词"),
+    category: QuestionCategory = Query(None, description="题目类别"),
+    difficulty: DifficultyLevel = Query(None, description="难度等级"),
     page: int = Query(1, ge=1, description="页码"),
     size: int = Query(10, ge=1, le=100, description="每页记录数"),
 ):
-    """获取题目列表"""
-    skip = (page - 1) * size
-    questions = crud.get_questions(db, skip=skip, limit=size)
-    total = crud.get_questions_count(db)
+    """获取题目列表（支持搜索和筛选）"""
+    # 如果有搜索或筛选条件，使用搜索功能
+    if q or category or difficulty:
+        params = schemas.QuestionSearchParams(
+            q=q,
+            category=category,
+            difficulty=difficulty,
+            page=page,
+            size=size
+        )
+        questions, total = crud.search_questions(db, params)
+    else:
+        # 无搜索条件时，直接获取所有题目
+        skip = (page - 1) * size
+        questions = crud.get_questions(db, skip=skip, limit=size)
+        total = crud.get_questions_count(db)
     
     return schemas.QuestionListResponse(
         items=questions,
