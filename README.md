@@ -280,16 +280,6 @@ docker-compose logs -f
 
 本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 
-## 👥 贡献者
-
-感谢所有为这个项目做出贡献的开发者！
-
-## 📞 联系方式
-
-如有问题或建议：
-- 提交 [Issue](https://github.com/yourusername/interview-question-bank/issues)
-- 发送邮件：your.email@example.com
-
 ---
 
 **享受使用面试题库管理系统！** 🎉
