@@ -274,9 +274,9 @@ const resetFilters = () => {
   handleSearch()
 }
 
-const changePage = (page: number) => {
+const changePage = (newPage: number) => {
   questionStore.fetchQuestions({
-    page,
+    page: newPage,
     q: searchQuery.value || undefined,
     category: selectedCategory.value || undefined,
     difficulty: selectedDifficulty.value || undefined

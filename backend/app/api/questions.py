@@ -21,19 +21,20 @@ def create_question(
 @router.get("/", response_model=schemas.QuestionListResponse)
 def read_questions(
     db: Session = Depends(get_db),
-    skip: int = Query(0, ge=0, description="跳过的记录数"),
-    limit: int = Query(10, ge=1, le=100, description="每页记录数"),
+    page: int = Query(1, ge=1, description="页码"),
+    size: int = Query(10, ge=1, le=100, description="每页记录数"),
 ):
     """获取题目列表"""
-    questions = crud.get_questions(db, skip=skip, limit=limit)
+    skip = (page - 1) * size
+    questions = crud.get_questions(db, skip=skip, limit=size)
     total = crud.get_questions_count(db)
     
     return schemas.QuestionListResponse(
         items=questions,
         total=total,
-        page=skip // limit + 1,
-        size=limit,
-        pages=(total + limit - 1) // limit
+        page=page,
+        size=size,
+        pages=(total + size - 1) // size
     )
 
 @router.get("/search", response_model=schemas.QuestionListResponse)
