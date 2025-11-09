@@ -6,6 +6,10 @@ import json
 from app.models import Question
 from app.schemas import QuestionCreate, QuestionUpdate, QuestionSearchParams
 
+def get_question_by_title(db: Session, title: str) -> Optional[Question]:
+    """根据标题查找题目"""
+    return db.query(Question).filter(Question.title == title).first()
+
 def create_question(db: Session, question: QuestionCreate) -> Question:
     db_question = Question(
         title=question.title,
