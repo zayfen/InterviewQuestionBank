@@ -7,7 +7,7 @@ import json
 
 class AIService:
     def __init__(self):
-        self.client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        self.client = OpenAI(api_key=settings.OPENAI_API_KEY, base_url=settings.OPENAI_BASE_URL)
     
     def generate_questions(
         self, 
@@ -64,7 +64,7 @@ class AIService:
         
         try:
             response = self.client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model=settings.OPENAI_MODEL,
                 messages=[
                     {"role": "system", "content": "你是一个专业的技术面试官，擅长生成高质量的面试题目。"},
                     {"role": "user", "content": prompt}

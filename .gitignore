@@ -142,3 +142,9 @@ vite.config.ts.timestamp-*
 
 
 __pycache__/
+
+backend/.env
+
+# SQLite WAL 模式文件
+*.db-shm
+*.db-wal
