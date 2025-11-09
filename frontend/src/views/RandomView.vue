@@ -163,7 +163,7 @@
                 <MarkdownRenderer :content="question.content" />
               </div>
 
-              <div v-if="showAnalysis && question.analysis" class="mb-4">
+              <div v-if="showAnalysisMap[question.id] && question.analysis" class="mb-4">
                 <h4 class="text-sm font-medium text-gray-700 mb-2">解题思路</h4>
                 <MarkdownRenderer :content="question.analysis" />
               </div>
@@ -180,9 +180,9 @@
               <Button
                 variant="secondary"
                 size="sm"
-                @click="toggleAnalysis"
+                @click="toggleAnalysis(question.id)"
               >
-                {{ showAnalysis ? '隐藏解析' : '显示解析' }}
+                {{ showAnalysisMap[question.id] ? '隐藏解析' : '显示解析' }}
               </Button>
               <Button
                 variant="danger"
@@ -241,7 +241,8 @@ const selectedCategories = ref<string[]>([])
 const selectedDifficulties = ref<string[]>([])
 const selectedQuestions = ref<Question[]>([])
 const selecting = ref(false)
-const showAnalysis = ref(false)
+// 为每个题目单独维护解析显示状态
+const showAnalysisMap = ref<Record<number, boolean>>({})
 
 const selectAllCategories = () => {
   selectedCategories.value = categories.map(c => c.value)
@@ -293,8 +294,9 @@ const removeQuestion = (index: number) => {
   selectedQuestions.value.splice(index, 1)
 }
 
-const toggleAnalysis = () => {
-  showAnalysis.value = !showAnalysis.value
+const toggleAnalysis = (questionId: number) => {
+  // 切换指定题目的解析显示状态
+  showAnalysisMap.value[questionId] = !showAnalysisMap.value[questionId]
 }
 
 const reselectQuestions = () => {
