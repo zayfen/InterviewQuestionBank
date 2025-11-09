@@ -12,7 +12,7 @@ import type {
 
 const api = axios.create({
   baseURL: '/api',
-  timeout: 10000
+  timeout: 5 * 60 * 1000
 })
 
 export const questionApi = {
