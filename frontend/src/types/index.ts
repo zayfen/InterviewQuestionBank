@@ -72,7 +72,9 @@ export const categories = [
   { value: 'mobile', label: '移动开发' },
   { value: 'data_science', label: '数据科学' },
   { value: 'security', label: '网络安全' },
-  { value: 'testing', label: '软件测试' }
+  { value: 'testing', label: '软件测试' },
+  { value: 'react_native', label: 'React Native' },
+  { value: 'react', label: 'React' },
 ] as const
 
 export const difficulties = [

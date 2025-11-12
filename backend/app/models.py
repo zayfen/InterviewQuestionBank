@@ -19,6 +19,8 @@ class QuestionCategory(str, enum.Enum):
     DATA_SCIENCE = "data_science"
     SECURITY = "security"
     TESTING = "testing"
+    REACT_NATIVE = "react_native"
+    REACT = "react"
 
 class Question(Base):
     __tablename__ = "questions"

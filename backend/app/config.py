@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./interview_questions.db"
     OPENAI_API_KEY_OVERRIDE: str = ""
     OPENAI_BASE_URL_OVERRIDE: str = "https://api.openai.com/v1"
-    OPENAI_MODEL_OVERRIDE: str = "gpt-3.5-turbo"
+    OPENAI_MODEL_OVERRIDE: str = "gpt-4-turbo"
     API_V1_STR: str = "/api/v1"
     PROJECT_NAME: str = "Interview Question Bank API"
     CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:5173"]

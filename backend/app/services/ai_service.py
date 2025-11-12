@@ -34,7 +34,9 @@ class AIService:
             QuestionCategory.MOBILE: "移动开发",
             QuestionCategory.DATA_SCIENCE: "数据科学",
             QuestionCategory.SECURITY: "网络安全",
-            QuestionCategory.TESTING: "软件测试"
+            QuestionCategory.TESTING: "软件测试",
+            QuestionCategory.REACT_NATIVE: "React Native",
+            QuestionCategory.REACT: "React"
         }
         
         prompt = f"""
@@ -43,7 +45,7 @@ class AIService:
         每个题目需要包含：
         1. 简洁明了的题目标题
         2. 详细的题目描述
-        3. 完整的解题思路和分析
+        3. 完整的解题思路和原理细节剖析。根据需要，生成Markdown格式的 mermaid格式的流程图 以辅助理解。
         4. 相关的技术标签（3-5个）
         
         请以JSON格式返回，结构如下：
@@ -61,6 +63,7 @@ class AIService:
         }}
         
         确保题目具有实际工程价值，避免过于理论化的问题。
+        注意：analysis中可能包含markdown格式代码，请检查编码问题，确保完整的json是正确且可解析的。
         """
         
         try:
@@ -99,7 +102,7 @@ class AIService:
                 
                 return questions
             except (json.JSONDecodeError, KeyError, ValueError) as e:
-                raise ValueError(f"AI 返回的数据格式解析失败: {str(e)}")
+                raise ValueError(f"AI 返回的数据格式解析失败: {str(e)} RawContent：{content}")
                 
         except Exception as e:
             # 如果是自定义的 ValueError，直接向上抛出
